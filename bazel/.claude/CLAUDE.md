@@ -32,15 +32,22 @@ Immutable collection of source documents. The LLM reads from here but never modi
 
 ```
 raw/
-├── articles/           # Blog posts, web articles (clipped via Web Clipper)
-├── docs/              # Official Bazel documentation, guides
-├── books/             # Book chapters, long-form content
-├── videos/            # Video transcripts (if transcribed)
-├── experiments/       # Your own BUILD files, test projects, learning artifacts
-└── assets/            # Images, diagrams extracted from sources
+├── inbox/                 # Newly added sources waiting to be ingested
+│   ├── articles/         # Incoming article clippings and notes
+│   ├── books/            # Incoming book chapters or long-form content
+│   ├── docs/             # Incoming documentation and reference material
+│   ├── experiments/      # Incoming learning experiments or notes
+│   └── videos/           # Incoming transcripts or video notes
+├── processed/             # Sources already ingested and archived
+│   ├── articles/
+│   ├── books/
+│   ├── docs/
+│   ├── experiments/
+│   └── videos/
+└── assets/                # Images, diagrams, screenshots, and extracted media
 ```
 
-**Principle:** Raw sources remain unchanged. All synthesis, cross-referencing, and organization happens in the wiki layer.
+**Principle:** Raw sources remain unchanged. The active ingest queue is `raw/inbox/`; once a source is processed, it should be moved into the matching subfolder under `raw/processed/`. This keeps pending-vs-archived state explicit without needing any LLM-maintained status list, while the source-type folders provide a simple, durable structure for the raw corpus.
 
 ### Layer 2: Wiki (LLM-Maintained Knowledge Base)
 
@@ -71,12 +78,13 @@ wiki/
 
 ### Layer 3: Schema Layer (This File + Skills)
 
-**Files:** `.claude/CLAUDE.md`, `.claude/skills/ingest.md`, `.claude/skills/query.md`, `.claude/skills/lint.md`
+**Files:** `.claude/CLAUDE.md`, `./claude/docs/superpowers/`, `.claude/skills/ingest/SKILL.md`, `.claude/skills/query/SKILL.md`, `.claude/skills/lint/SKILL.md`
 
 Configuration and workflow instructions that tell the LLM:
 - How the wiki is structured
 - What conventions to follow
 - How to ingest sources, answer queries, and maintain health
+- Where to store superpower guidance documents: use `./claude/docs/superpowers/` for rule files and supporting documentation that should be treated as project-level superpower guidance rather than raw source material
 
 ---
 
@@ -211,33 +219,43 @@ last_updated: "2026-07-17"
 
 ### INGEST: Adding a New Source
 
-**Trigger:** You add a new file to `raw/` or ask the LLM to process a source.
+**Trigger:** You add a new file to `raw/inbox/` or ask the LLM to process pending sources.
 
 **Workflow Steps:**
 
-1. **Read & Analyze**
-   - Read the source carefully
+1. **Scan the Active Queue**
+   - Check `raw/inbox/` for pending sources
+   - If the inbox is empty, do nothing and stop
+   - Treat every file currently in `raw/inbox/` as new and unprocessed
+
+2. **Read & Analyze**
+   - Read each source carefully
    - Identify key concepts, principles, examples, contradictions with existing wiki
    - Note gaps (things mentioned but not explained)
 
-2. **Create/Update Pages**
+3. **Create/Update Pages**
    - For each concept found:
      - Does a wiki page exist? If yes, read it
      - Integrate new information: update content, add examples, flag contradictions
      - If no page exists, create one with appropriate category/level
    - Update frontmatter: `status`, `sources`, `last_updated`, `related`
 
-3. **Update Cross-References**
+4. **Update Cross-References**
    - Review pages that *should* link to the new content
    - Add wikilinks where relevant
    - Update `related` fields in both directions (if A links to B, B should link to A)
 
-4. **Update Index**
+5. **Update Index**
    - Add new pages to `wiki/index.md`
    - Update entry summaries if existing pages changed substantially
    - Keep index organized by category
 
-5. **Log the Ingest**
+6. **Archive the Processed Sources**
+   - After successful ingest, move each processed file from `raw/inbox/` to `raw/processed/`
+   - Use a shell command such as `mv raw/inbox/* raw/processed/` or move them manually in the file explorer
+   - If a file needs to be reprocessed, move it back from `raw/processed/` to `raw/inbox/`
+
+7. **Log the Ingest**
    - Append entry to `wiki/log.md`:
    ```
    ## [YYYY-MM-DD] ingest | [Source Title]
@@ -569,9 +587,9 @@ sources: ["docs/concepts-guide.md", "blog-post-macros.md", "your-experiment-abc.
 ## Related Resources
 
 - **Design Spec:** `docs/superpowers/specs/2026-07-17-bazel-llm-wiki-design.md`
-- **Ingest Skill:** `.claude/skills/ingest.md`
-- **Query Skill:** `.claude/skills/query.md`
-- **Lint Skill:** `.claude/skills/lint.md`
+- **Ingest Skill:** `.claude/skills/ingest/SKILL.md`
+- **Query Skill:** `.claude/skills/query/SKILL.md`
+- **Lint Skill:** `.claude/skills/lint/SKILL.md`
 
 ---
 
