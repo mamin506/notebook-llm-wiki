@@ -2,48 +2,60 @@
 
 This is the catalog of all pages in the Bazel LLM Wiki. Updated after every ingest.
 
-**Status:** Just initialized; awaiting first ingest of official Bazel documentation.
+**Status:** First ingest complete! 7 pages created covering BUILD style, best practices, and tools.
 
 ---
 
 ## Concepts
 
 ### Fundamentals
-(No pages yet. First ingest will add pages like targets, rules, artifacts, BUILD files, etc.)
+(Coming soon: targets, rules, artifacts, dependencies, BUILD files)
 
 ### Advanced
-(No pages yet. Will be populated after fundamentals are solid.)
+(Coming soon: macros, aspects, custom rules, performance optimization)
 
 ---
 
 ## Reference
-(No pages yet. Will contain synthesis of official Bazel docs: CLI reference, built-in rules, API guides, configuration.)
+
+- [[reference/build-conventions]] — BUILD file formatting, conventions, and style (growing)
+- [[reference/recommended-rules]] — Quality standards for Bazel rulesets (growing)
 
 ---
 
 ## Languages
-(No pages yet. Will contain guides for Python, Java, C++, TypeScript, and other languages.)
+
+(Coming soon: Python, Java, C++, TypeScript guides)
 
 ---
 
 ## Tools
-(No pages yet. Will contain guides for Gazelle, Buildifier, Buildozer, and other tools.)
+
+- [[tools/buildifier]] — BUILD file formatter and linter (growing)
 
 ---
 
 ## Patterns
-(No pages yet. Will contain best practices: monorepo layout, testing strategy, dependency management, custom rules, etc.)
+
+- [[patterns/build-file-style]] — DAMP over DRY, file structure, comments (growing)
+- [[patterns/target-naming]] — Naming conventions by language and type (growing)
+- [[patterns/dependency-management]] — Direct dependencies, avoiding shared variables (growing)
+- [[patterns/avoiding-antipatterns]] — Anti-patterns: list comprehensions, recursive globs (growing)
 
 ---
 
 ## Troubleshooting
-(No pages yet. Will contain debugging guides, performance optimization, common issues, etc.)
+
+(Coming soon: debugging, performance, common errors)
 
 ---
 
 ## Experiments
-(No pages yet. Will contain pages documenting your hands-on learning experiments and projects.)
+
+(Will contain pages documenting your hands-on learning and projects.)
 
 ---
 
-**Next Step:** Ingest the official Bazel concepts guide to populate concepts/fundamentals/ and reference/.
+**Latest Ingest (2026-07-19):** Official Bazel docs (BUILD Style Guide, Recommended Rules, Sharing Variables)  
+**Pages Created:** 7 (4 patterns, 2 reference, 1 tool)  
+**Next Steps:** Core concepts, more languages, troubleshooting guides

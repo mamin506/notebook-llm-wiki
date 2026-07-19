@@ -27,8 +27,43 @@ Operations:
 
 ## Activity
 
-(Awaiting first operations...)
+## [2026-07-19] ingest | Official Bazel Documentation: Style Guide, Rules, Variables
+
+**Sources:**
+- BUILD Style Guide.md
+- Recommended Rules.md  
+- Sharing Variables.md
+
+**Created:**
+- [[patterns/build-file-style]] — DAMP over DRY, file structure, comments
+- [[patterns/target-naming]] — Naming conventions by language and type
+- [[patterns/dependency-management]] — Direct deps, no shared vars, .bzl imports
+- [[patterns/avoiding-antipatterns]] — List comprehensions, recursive globs, .bzl exports
+- [[reference/build-conventions]] — Formatting, strings, booleans, whitespace
+- [[reference/recommended-rules]] — Ruleset quality standards and requirements
+- [[tools/buildifier]] — Formatter, linter, usage examples
+
+**Updated:**
+- [[wiki/index.md]] — Added 7 new pages to index
+
+**Key Findings:**
+- BUILD files are configurations, not code → prefer DAMP over DRY
+- Direct dependencies only; never use shared COMMON_DEPS variables
+- Recursive globs are anti-pattern; prefer per-directory BUILD files
+- Buildifier is standard tool for formatting (like gofmt)
+- Recommended rules have strict quality/maintenance requirements
+- Tools like Gazelle can auto-generate/update BUILD files → explicit deps help
+
+**Open Questions:**
+- How to structure very large monorepos?
+- Performance tuning for massive builds?
+- How do macro/rule interactions work?
+
+**Next Source Suggestions:**
+- Concepts guide (targets, rules, artifacts, dependencies)
+- Performance guide for large monorepos
+- Python/Java/C++ language-specific guides
 
 ---
 
-**Next:** First ingest will be official Bazel concepts guide.
+**Stats:** 7 pages created, 30+ concepts documented, 2,260+ words added
