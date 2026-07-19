@@ -114,3 +114,53 @@ Operations:
 - Integration with IDEs
 
 **Stats:** 9 new pages, 50+ Bazel concepts documented, 4,000+ words added, 16 pages total in wiki
+
+---
+
+## [2026-07-19] architecture | Edge-marginalization strategy for legacy/recommended knowledge
+
+**Principle:** Rather than delete outdated knowledge or treat it equally to modern practices, create a deliberate asymmetry in the wiki:
+
+**Recommended Pages (Rich):**
+- Full content with multiple examples
+- Cross-linked with many related concepts
+- Tagged #recommended, #current-best-practice
+- Can grow and expand indefinitely
+- Examples: [[concepts/fundamentals/build.bazel]], [[concepts/fundamentals/module.bazel]]
+
+**Legacy Pages (Sparse):**
+- Minimal content (one or two sentences)
+- Only link back to recommended alternative
+- Tagged #legacy, #historical
+- Remain stable, rarely edited
+- Examples: [[reference/build-legacy]], [[reference/workspace-legacy]]
+
+**Result:** Legacy knowledge is preserved (not deleted) but gently pushed to the edges. Users are guided toward modern practices by the wiki's own structure.
+
+**Implemented Old/New Pairs:**
+1. BUILD ↦ BUILD.bazel (file naming)
+2. WORKSPACE ↦ MODULE.bazel (project configuration)
+3. (Future) http_archive URLs ↦ Bazel modules + registry
+4. (Future) --cpu flags ↦ Platforms API
+5. (Future) Old macro patterns ↦ Modern best practices
+
+**Benefits:**
+- Maintains historical knowledge without pollution
+- Reduces maintenance burden (legacy pages are stable)
+- Guides learning in right direction through structure
+- Future-proofs wiki as Bazel evolves
+- Supports users stuck on older versions while encouraging upgrade
+
+**Maintenance Principle:**
+- When Bazel deprecates something: create recommended page, then minimal legacy page
+- Enhance recommended pages over time
+- Legacy pages link ONLY to recommended alternatives
+- Never link legacy pages to other concepts (keeps them isolated)
+
+**Created 4 pages with this strategy:**
+- [[concepts/fundamentals/build.bazel]] (recommended, rich)
+- [[reference/build-legacy]] (legacy, sparse)
+- [[concepts/fundamentals/module.bazel]] (recommended, rich)
+- [[reference/workspace-legacy]] (legacy, sparse)
+
+This approach ensures the wiki remains useful to learners at all levels while naturally pulling users toward best practices.
