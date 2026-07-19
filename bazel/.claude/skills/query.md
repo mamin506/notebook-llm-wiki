@@ -1,0 +1,536 @@
+# Query Skill: Asking Questions & Synthesizing Answers
+
+## Header
+
+**Purpose:** Systematically search the wiki, synthesize answers from existing pages, and file valuable results back into the knowledge base. Every query both answers your question *and* potentially compounds the wiki with new insights.
+
+**When to Use:**
+- You have a question about Bazel (e.g., "How do I structure a Python monorepo with Bazel?")
+- You want to know something the wiki doesn't explicitly cover yet (synthesis question)
+- You need troubleshooting help or clarification on a concept
+- You notice a gap and want to explore it with the existing wiki content
+
+**Expected Time:** 15–45 minutes depending on query complexity and scope:
+- Simple factual questions: 10–15 minutes
+- Synthesis questions requiring new page creation: 25–45 minutes
+- Troubleshooting questions with multiple pages to consult: 15–30 minutes
+
+**Skill Level:** Intermediate (requires familiarity with wiki structure and the ability to integrate multiple sources)
+
+---
+
+## Workflow
+
+### Step 1: Search the Index
+
+**Goal:** Find pages relevant to your question.
+
+**Actions:**
+
+1. **Read `wiki/index.md` carefully**
+   - Scan the section structure (Concepts, Reference, Languages, Tools, Patterns, Troubleshooting, Experiments)
+   - Look for pages that match the topic of your question
+
+2. **Identify candidate pages**
+   - List all pages that seem related to your question
+   - Example: If you ask "What's the difference between macros and rules?", you'd identify:
+     - `[[concepts/fundamentals/rules]]`
+     - `[[concepts/advanced/macros]]` (if it exists)
+     - `[[reference/api-guide]]` (if it contains relevant sections)
+
+3. **Check page status**
+   - Note the status of each candidate page: seedling, growing, mature, complete
+   - Seedling pages have minimal content; mature/complete pages will have better coverage
+   - If all candidates are seedlings, prepare to synthesize carefully and note gaps
+
+4. **Note cross-references in the index**
+   - The index's `related` hints tell you which pages link to each other
+   - These links often guide you to adjacent pages worth reading
+
+**Output of Step 1:**
+- A list of candidate pages to read
+- Understanding of their status (maturity level)
+- Awareness of which pages link to each other
+
+---
+
+### Step 2: Read Relevant Pages
+
+**Goal:** Extract information from the pages you identified, noting connections and contradictions.
+
+**Actions:**
+
+1. **Read each candidate page**
+   - Read from frontmatter first: understand the page's category, level, status, and sources
+   - Read the body content carefully
+   - Highlight examples, definitions, and practical guidance
+
+2. **Track cross-references**
+   - Note the `related` field in each page's frontmatter
+   - Read those related pages if they add context to your question
+   - Build a mental map of how the pages connect
+
+3. **Spot contradictions or gaps**
+   - Do any pages claim opposite things?
+   - Are there vague areas, unexplained terms, or incomplete sections?
+   - Log these for later (you'll surface them in the answer)
+
+4. **Collect evidence**
+   - Note which page(s) answer each part of your question
+   - Keep track of source citations (page names, section titles)
+   - If a page references raw sources, remember those too (useful for suggesting follow-up reading)
+
+5. **Take notes on key points**
+   - Write down the main ideas from each page in your own words
+   - Note examples, code snippets, or step-by-step guidance
+   - Identify where the pages overlap or diverge
+
+**Output of Step 2:**
+- Detailed notes on all relevant pages
+- List of cross-references followed
+- Identified contradictions or gaps
+- Evidence for answering the question (with page citations)
+
+---
+
+### Step 3: Synthesize & Answer
+
+**Goal:** Combine information from multiple pages into a coherent answer, with clear citations and acknowledgment of uncertainty.
+
+**Actions:**
+
+1. **Structure your answer based on the question**
+   - For factual questions: direct answer, supported by citations
+   - For comparison questions: side-by-side comparison with trade-offs
+   - For troubleshooting: diagnostic steps, possible causes, and solutions
+   - For "how to" questions: step-by-step process with examples
+
+2. **Cite your sources**
+   - Reference the pages you read: "According to [[concepts/fundamentals/rules]], ...", or "As explained in [[patterns/monorepo-layout]], ..."
+   - If multiple pages say the same thing, cite the most comprehensive one
+   - If pages contradict each other, flag it: "[[page-a]] claims X, but [[page-b]] suggests Y"
+
+3. **Call out contradictions, gaps, and uncertainty**
+   - If you found contradictions, explain them: "These may reflect different Bazel versions, or different contexts"
+   - If the wiki lacks coverage, admit it: "The wiki doesn't have a dedicated page on this yet, but we can infer..."
+   - If you're uncertain about something, say so: "This is based on [[page-x]] (status: seedling), so verify if needed"
+
+4. **Provide examples or concrete guidance when available**
+   - Include code snippets, commands, or step-by-step instructions from the pages you read
+   - Adapt examples to the user's question if needed
+   - Link to more detailed guidance (e.g., "For a complete walkthrough, see [[patterns/monorepo-layout]]")
+
+5. **Format your answer clearly**
+   - Use markdown: headings, bullet points, tables, code blocks
+   - Make it scannable; avoid long paragraphs
+   - End with any caveats or suggestions for follow-up
+
+**Output of Step 3:**
+- A clear, well-structured answer to the question
+- Citations to all source pages
+- Flagged contradictions, gaps, or uncertainties
+- Practical guidance or examples where available
+
+---
+
+### Step 4: File if Valuable
+
+**Goal:** Decide whether your answer contains valuable new insights worth capturing as a wiki page.
+
+**Actions:**
+
+1. **Assess whether the answer is valuable**
+   - Does your synthesis reveal a new pattern or comparison not explicitly captured in existing pages?
+   - Does it resolve a contradiction or clarify a confusing topic?
+   - Does it create a useful guide or checklist that others might reference?
+   - Is it specific and actionable (not just a generic summary)?
+
+2. **If NOT valuable, skip this step**
+   - Not every query result needs a new page
+   - Simple factual answers ("What is a target?") typically don't need a new page if a good one exists
+   - Save page creation for synthesis, comparisons, guides, and resolved contradictions
+
+3. **If valuable, create a new page**
+   - Determine the category: concepts (if explaining an idea), patterns (if giving guidance), or troubleshooting (if solving a problem)
+   - Determine the level: fundamentals, intermediate, or advanced
+   - Write the page with proper frontmatter (title, category, level, status, sources, tags, related, last_updated)
+   - Set status to "seedling" (this page is new from a single query result)
+   - List in `sources` the pages you synthesized from (e.g., `sources: ["concepts/fundamentals/rules.md", "concepts/advanced/macros.md"]`)
+   - Add page to the `related` field of existing pages that connect to it
+   - Update those related pages' `related` fields to link back to the new page
+
+4. **Update the wiki index**
+   - Add the new page to `wiki/index.md` in the appropriate section
+   - Use the format: `- [[path/to/page]] — Brief description (seedling)`
+
+**Output of Step 4:**
+- Either: confirmation that the answer was not valuable enough to file (no action taken)
+- Or: a new wiki page with proper frontmatter, linked to related pages, added to the index
+
+---
+
+### Step 5: Log the Query
+
+**Goal:** Record the question, answer, and any new insights or gaps discovered.
+
+**Actions:**
+
+1. **Open `wiki/log.md`**
+   - This is an append-only log of all activities (ingests, queries, lint passes)
+
+2. **Append a new entry at the end**
+   - Use this format:
+     ```markdown
+     ## [YYYY-MM-DD] query | [Question Summary]
+     
+     Pages referenced: [[page1]], [[page2]], [[page3]]
+     Answer: [1-2 sentence summary of your answer]
+     New page created: [[new-page]] (if applicable; omit if not)
+     Gaps identified: [Notable missing info, contradictions, or follow-up questions]
+     Confidence: high|medium|low (based on status of pages consulted)
+     ```
+
+3. **Be specific and concise**
+   - List all pages you consulted (even if you didn't cite all of them in the answer)
+   - Summarize the answer in 1-2 sentences
+   - Flag any contradictions or uncertain areas
+   - Suggest follow-up sources or questions for future ingests
+
+4. **Format consistently**
+   - Start with `## [YYYY-MM-DD] query | ` so entries are grep-able
+   - Use wikilinks `[[]]` for page references
+   - Keep entries brief (5–10 sentences typically)
+
+**Example Log Entry:**
+```markdown
+## [2026-07-25] query | How do I structure a Python monorepo with Bazel?
+
+Pages referenced: [[languages/python]], [[patterns/monorepo-layout]], [[concepts/fundamentals/dependencies]]
+Answer: Use py_library for shared code, py_binary for executables, and organize by functional domain. Lock external dependencies with pip-lock or similar.
+New page created: none (existing pages already covered this)
+Gaps identified: Wiki lacks specific example of a complete Python monorepo layout. Consider ingest of real-world Python project setup guide.
+Confidence: high (pages are mature/complete)
+```
+
+**Output of Step 5:**
+- New entry appended to `wiki/log.md`
+- Clear record of what was queried, what the answer was, and what gaps remain
+
+---
+
+## Verification Checklist
+
+Before considering a query complete, verify the following 8 items:
+
+- [ ] **Question understood clearly** — You've restated the question to yourself; you know what you're trying to answer
+
+- [ ] **Index searched thoroughly** — You've scanned `wiki/index.md` and identified all relevant pages (check multiple categories, not just one)
+
+- [ ] **All candidate pages read** — You've read each page you identified (or noted why you skipped it), including their frontmatter
+
+- [ ] **Cross-references followed** — You've read linked pages referenced in the `related` fields when they add context to the question
+
+- [ ] **Answer is accurate and cited** — Your answer is supported by the pages you read; you've included citations like `[[page]]`
+
+- [ ] **Contradictions and gaps flagged** — If you found contradictions or gaps, you've explicitly called them out in your answer (e.g., "The wiki doesn't cover X yet")
+
+- [ ] **Decision made on filing** — You've decided whether the answer merits a new wiki page; if yes, you've created it with full frontmatter and updated the index and related pages
+
+- [ ] **Log entry appended** — You've appended a new entry to `wiki/log.md` with the question, pages referenced, answer summary, and any gaps identified
+
+---
+
+## Query Examples
+
+### Example 1: Simple Factual Question
+
+**Question:** "What is a target in Bazel?"
+
+**Step 1 - Search the Index:**
+- Find `[[concepts/fundamentals/targets]]` in the index
+
+**Step 2 - Read Relevant Pages:**
+- Read `concepts/fundamentals/targets.md` (full coverage of this topic)
+- Check `related` field for adjacent pages like `[[concepts/fundamentals/rules]]` and `[[concepts/fundamentals/labels]]`
+- Skim those if they add context
+
+**Step 3 - Synthesize & Answer:**
+```
+A **target** is the atomic unit of work in Bazel. It's an immutable specification of what to build,
+consisting of a rule type, attributes, and a unique label (e.g., `//myapp:service`).
+
+According to [[concepts/fundamentals/targets]], targets are not the artifacts themselves—they're
+the *instructions* for how to build artifacts. Think of a target as a blueprint; the artifact is
+the result of building from that blueprint.
+
+See [[concepts/fundamentals/rules]] for how targets relate to rules, and [[concepts/fundamentals/labels]]
+for label syntax.
+```
+
+**Step 4 - File if Valuable:**
+- Not valuable: the answer is a direct citation of an existing page
+- Skip filing; the question is already well-covered
+
+**Step 5 - Log the Query:**
+```markdown
+## [2026-07-25] query | What is a target in Bazel?
+
+Pages referenced: [[concepts/fundamentals/targets]]
+Answer: A target is the atomic unit of Bazel work—an immutable specification of a rule, attributes, and label.
+New page created: none
+Gaps identified: none
+Confidence: high
+```
+
+---
+
+### Example 2: Synthesis Question (Creates New Page)
+
+**Question:** "What's the difference between using `py_library` and `py_binary` in a Python monorepo, and when should I use each?"
+
+**Step 1 - Search the Index:**
+- Find `[[languages/python]]` — Python language guide
+- Find `[[patterns/monorepo-layout]]` — Guidance on structuring monorepos
+- Find `[[reference/builtin-rules]]` — Reference for built-in rules
+
+**Step 2 - Read Relevant Pages:**
+- Read `languages/python.md`: Explains py_library and py_binary with examples
+- Read `patterns/monorepo-layout.md`: Discusses how to organize code in a monorepo
+- Read `reference/builtin-rules.md`: Provides details on both rule types
+- Note: pages discuss them separately; no direct comparison yet
+
+**Step 3 - Synthesize & Answer:**
+```
+Based on [[languages/python]] and [[reference/builtin-rules]]:
+
+**py_library** is for reusable code that other targets depend on. It packages Python code
+and its dependencies for reuse. Use py_library for:
+- Shared utility modules
+- Common functions and classes other packages need
+- Internal libraries your binaries depend on
+
+**py_binary** is for executable Python programs. It creates a runnable entry point and bundles
+all dependencies. Use py_binary for:
+- CLI tools
+- Services and daemons
+- Scripts you want to run directly
+
+**In a monorepo** (see [[patterns/monorepo-layout]]), a typical structure looks like:
+```
+mymonorepo/
+├── shared/             # py_library targets for shared code
+├── services/
+│   └── api_service/    # py_binary for the API service
+└── tools/
+    └── build_helper/   # py_binary for build utilities
+```
+
+In general: **Maximize py_library, minimize py_binary.** Use py_binary only for entry points.
+```
+
+**Step 4 - File if Valuable:**
+- Valuable: This is a synthesis comparing two rules and showing a monorepo pattern
+- No existing page explicitly compares py_library vs py_binary with monorepo guidance
+- Create new page: `languages/python-library-vs-binary.md` (category: languages, level: intermediate, status: seedling)
+- Update `languages/python.md` `related` field to link to the new page
+- Update new page's `related` to link back to `[[languages/python]]` and `[[patterns/monorepo-layout]]`
+- Add new page to `wiki/index.md` under Languages section
+
+**Step 5 - Log the Query:**
+```markdown
+## [2026-07-26] query | py_library vs py_binary in Python monorepos
+
+Pages referenced: [[languages/python]], [[patterns/monorepo-layout]], [[reference/builtin-rules]]
+Answer: py_library for reusable code, py_binary for executable entry points. In monorepos, maximize libraries, minimize binaries.
+New page created: [[languages/python-library-vs-binary]] (synthesis + guidance)
+Gaps identified: none
+Confidence: high
+```
+
+---
+
+### Example 3: Troubleshooting Question
+
+**Question:** "Why is my Bazel build so slow? How do I optimize it?"
+
+**Step 1 - Search the Index:**
+- Find `[[troubleshooting/performance]]` — Performance optimization guide
+- Find `[[troubleshooting/cache-issues]]` — Caching and incremental builds
+- Find `[[patterns/dependency-management]]` — How dependencies affect builds
+
+**Step 2 - Read Relevant Pages:**
+- Read `troubleshooting/performance.md`: Common bottlenecks, profiling techniques, optimization strategies
+- Read `troubleshooting/cache-issues.md`: Remote cache, local cache, invalidation issues
+- Read `patterns/dependency-management.md`: Dependency bloat, unnecessary dependencies
+- Note: `performance.md` mentions caching but refers to `cache-issues.md` for details
+
+**Step 3 - Synthesize & Answer:**
+```
+Build slowness typically has a few causes. According to [[troubleshooting/performance]], here's
+a diagnostic approach:
+
+**1. Profile your build:**
+```bash
+bazel build --profile=/tmp/profile.json //...
+bazel analyze-profile /tmp/profile.json
+```
+
+This tells you where time is spent: analysis, execution, or I/O.
+
+**2. Common culprits and solutions:**
+
+- **Missing cache:** If rebuilding takes forever, check if remote cache is configured. See [[troubleshooting/cache-issues]].
+- **Unnecessary dependencies:** Per [[patterns/dependency-management]], each dependency slows analysis. Audit your BUILD files; remove unused deps.
+- **Large outputs:** Rules generating huge artifacts (e.g., uncompressed binaries) slow cache and I/O. Compress where possible.
+- **Sequential tests:** Run tests in parallel: `bazel test --test_threads=N //...`
+
+**3. Advanced optimizations:**
+
+- Use action caching and memoization (see [[troubleshooting/cache-issues]] for details)
+- Split large monorepos into smaller Bazel workspaces if analysis time dominates
+- Profile before optimizing; don't guess
+
+**Confidence note:** Specific optimization depends on *your* bottleneck. Start with profiling.
+```
+
+**Step 4 - File if Valuable:**
+- Not valuable as a new page: we're reusing and slightly reorganizing existing guidance
+- The answer *references* existing pages; it doesn't reveal new synthesis
+- Skip filing
+
+**Step 5 - Log the Query:**
+```markdown
+## [2026-07-26] query | Why is my Bazel build slow? How do I optimize?
+
+Pages referenced: [[troubleshooting/performance]], [[troubleshooting/cache-issues]], [[patterns/dependency-management]]
+Answer: Profile first to find bottlenecks (analysis, execution, I/O). Common fixes: enable remote cache, remove unused dependencies, parallelize tests.
+New page created: none
+Gaps identified: Could benefit from a real-world case study or performance before/after example.
+Confidence: high
+```
+
+---
+
+## Guidelines for Effective Querying
+
+### 1. **Start with the Index, Always**
+
+Don't search the filesystem or scroll randomly. The index is your compass.
+
+- Read `wiki/index.md` first
+- It's organized by category; use it to navigate
+- If you can't find a relevant page in the index, the wiki likely lacks coverage—which is valuable to know
+
+### 2. **Follow the Web of Links**
+
+Pages are connected. Follow them.
+
+- Read a page's `related` field
+- Follow those links if they add context
+- Don't read pages in isolation; the links *are* the knowledge base
+
+### 3. **Pay Attention to Page Status**
+
+Page status (seedling, growing, mature, complete) indicates reliability.
+
+- Seedling pages may be incomplete or need verification
+- Mature/complete pages are well-researched and comprehensive
+- If your answer relies on seedling pages, flag it: "This is based on developing content; verify if needed"
+- Suggest follow-up ingests to mature seedling pages
+
+### 4. **Surface Contradictions & Gaps Explicitly**
+
+Don't hide uncertainty; call it out.
+
+- If two pages claim different things, explain: "This may reflect different Bazel versions, or different contexts"
+- If the wiki lacks coverage, say so: "The wiki doesn't have a page on X yet; here's what we can infer..."
+- Suggest sources to fill gaps in your log entry
+
+### 5. **Cite Generously**
+
+Make your answers traceable and reusable.
+
+- Use wikilinks: `[[page]]` is better than just "the rules guide"
+- Reference page sections if helpful
+- Include page status in brackets if useful: `[[concepts/fundamentals/macros]] (status: growing)`
+- Citations enable readers to verify, learn more, or report errors
+
+### 6. **Consider Filing Valuable Synthesis**
+
+Your answer might compound the wiki.
+
+- Synthesis pages: comparisons, decision trees, guides
+- Resolved contradictions: create a page explaining both sides
+- Real-world examples: your troubleshooting process could help others
+- File sparingly, but file insights worth reusing
+
+### 7. **Log Every Query**
+
+The log is the wiki's activity timeline. It helps you and the LLM understand what's been explored.
+
+- Append to `wiki/log.md` after every query (even if you don't file a new page)
+- Log gaps and contradictions so future ingests know what to prioritize
+- Log confidence: high (mature/complete pages), medium (growing pages), low (seedling pages or conflicting sources)
+
+---
+
+## Common Pitfalls & How to Avoid Them
+
+### 1. **Ignoring the Index**
+**Pitfall:** You search the wiki folder directly or rely on memory instead of consulting `wiki/index.md`. You miss pages, or re-read pages you've already consulted.
+
+**Fix:** Always start with the index. It's your only comprehensive map of the wiki.
+
+### 2. **Not Following Related Links**
+**Pitfall:** You read one page in isolation and miss context from related pages. Your answer is incomplete.
+
+**Fix:** Check the `related` field in every page you read. Follow those links if they're relevant.
+
+### 3. **Citing Seedling Pages Without Caveats**
+**Pitfall:** Your answer relies on a seedling-status page, but you don't mention it. Readers assume the answer is authoritative; they later find errors.
+
+**Fix:** Check page status. If you rely on seedling or growing pages, note it: "This is based on developing content; verify if needed."
+
+### 4. **Creating a New Page When You Shouldn't**
+**Pitfall:** You synthesize a good answer and immediately file it as a new page, even though existing pages already cover it. Now the wiki has duplicate content.
+
+**Fix:** Before filing, ask: "Does existing content already explain this?" If yes, don't file. Your synthesis is the *answer*; the filing is optional.
+
+### 5. **Forgetting to Update the Index and Log**
+**Pitfall:** You create a new page but forget to add it to `wiki/index.md` or log the query. The new page is hidden; future queries miss it.
+
+**Fix:** Always update the index when creating a page. Always log the query to `wiki/log.md`.
+
+### 6. **Blending Your Own Opinions Into the Answer**
+**Pitfall:** You answer the question using wiki pages, but you also inject your own speculation or preferences without marking them as such. Readers can't distinguish wiki content from your commentary.
+
+**Fix:** Cite what the wiki says. If you add interpretation or opinion, mark it: "The wiki suggests X; in my experience, Y often happens." Keep opinions secondary.
+
+---
+
+## Query Workflow Checklist (Quick Reference)
+
+Use this as a quick reference while querying:
+
+- [ ] **Step 1: Search the Index** — Identify candidate pages in wiki/index.md
+- [ ] **Step 2: Read Relevant Pages** — Read all candidates; follow related links; take notes
+- [ ] **Step 3: Synthesize & Answer** — Compose answer with citations; flag contradictions/gaps
+- [ ] **Step 4: File if Valuable** — Decide whether to create a new page (synthesis, comparison, guide)
+- [ ] **Step 5: Log the Query** — Append entry to wiki/log.md with question, pages, answer, gaps
+- [ ] **Run Verification Checklist** — Verify all 8 items before considering the query complete
+
+---
+
+## Resources
+
+- **Design Spec:** See `.superpowers/sdd/2026-07-17-bazel-llm-wiki-design.md` for architecture overview
+- **CLAUDE.md:** Master schema and principles
+- **Ingest Skill:** `.claude/skills/ingest.md` (how to add new sources)
+- **Lint Skill:** `.claude/skills/lint.md` (how to maintain wiki health)
+- **Index:** `wiki/index.md` — catalog of all pages
+- **Log:** `wiki/log.md` — activity timeline
+
+---
+
+**Last Updated:** 2026-07-18  
+**Status:** Active Skill

@@ -1,0 +1,32 @@
+# Raw sources — exclude large files and external content
+raw/
+
+# Obsidian cache and plugins
+.obsidian/cache/
+.obsidian/plugins/
+.obsidian/*.json
+!.obsidian/vault.json
+
+# Claudian cache
+.claudian/
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+*~
+.*.sw[a-z]
+
+# Temporary files
+*.tmp
+*.bak
