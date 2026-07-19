@@ -9,10 +9,14 @@ This is the catalog of all pages in the Bazel LLM Wiki. Updated after every inge
 ## Concepts
 
 ### Fundamentals
-(Coming soon: targets, rules, artifacts, dependencies, BUILD files)
+- [[concepts/fundamentals/packages]] — The unit of code organization (growing)
+- [[concepts/fundamentals/targets]] — Atomic build units (growing)
+- [[concepts/fundamentals/build-files]] — Declaring targets with BUILD files (growing)
+- [[concepts/fundamentals/labels]] — Target identifiers and references (growing)
+- [[concepts/fundamentals/dependencies]] — Build graph and dependency management (growing)
 
 ### Advanced
-(Coming soon: macros, aspects, custom rules, performance optimization)
+(Coming soon: rules, macros, aspects, custom rules, performance optimization)
 
 ---
 
@@ -20,6 +24,8 @@ This is the catalog of all pages in the Bazel LLM Wiki. Updated after every inge
 
 - [[reference/build-conventions]] — BUILD file formatting, conventions, and style (growing)
 - [[reference/recommended-rules]] — Quality standards for Bazel rulesets (growing)
+- [[reference/repositories-workspaces]] — Repos and workspace organization (growing)
+- [[reference/external-dependencies]] — Managing external dependencies and modules (growing)
 
 ---
 
@@ -41,6 +47,7 @@ This is the catalog of all pages in the Bazel LLM Wiki. Updated after every inge
 - [[patterns/target-naming]] — Naming conventions by language and type (growing)
 - [[patterns/dependency-management]] — Direct dependencies, avoiding shared variables (growing)
 - [[patterns/avoiding-antipatterns]] — Anti-patterns: list comprehensions, recursive globs (growing)
+- [[patterns/visibility]] — Controlling target access and APIs (growing)
 
 ---
 
@@ -56,6 +63,7 @@ This is the catalog of all pages in the Bazel LLM Wiki. Updated after every inge
 
 ---
 
-**Latest Ingest (2026-07-19):** Official Bazel docs (BUILD Style Guide, Recommended Rules, Sharing Variables)  
-**Pages Created:** 7 (4 patterns, 2 reference, 1 tool)  
-**Next Steps:** Core concepts, more languages, troubleshooting guides
+**Latest Ingest (2026-07-19):** Official Bazel core concepts documentation  
+**Pages Created:** 16 total (5 concepts, 4 reference, 5 patterns, 1 tool, 1 visibility)  
+**Coverage:** Packages, targets, BUILD files, labels, dependencies, repos, workspaces, external deps, build style, naming, dependency mgmt, anti-patterns, visibility, buildifier, recommended rules  
+**Next Steps:** Rules, workflows, advanced concepts, language guides, troubleshooting

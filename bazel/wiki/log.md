@@ -66,4 +66,51 @@ Operations:
 
 ---
 
-**Stats:** 7 pages created, 30+ concepts documented, 2,260+ words added
+## [2026-07-19] ingest | Official Bazel Core Concepts (7 sources)
+
+**Sources:**
+- Repositories, workspaces, packages, and targets.md
+- Labels - Bazel.md
+- BUILD files.md
+- Dependencies - Bazel.md
+- External dependencies overview.md
+- Build programs with Bazel.md
+- Visibility - Bazel.md
+
+**Created (9 new pages):**
+- [[concepts/fundamentals/packages]] — Organization unit, contains targets
+- [[concepts/fundamentals/targets]] — Atomic build units, files and rules
+- [[concepts/fundamentals/build-files]] — BUILD file syntax and Starlark
+- [[concepts/fundamentals/labels]] — Target identifiers and reference syntax
+- [[concepts/fundamentals/dependencies]] — Dependency graphs, declared vs actual
+- [[reference/repositories-workspaces]] — Repos, workspace, main repo concepts
+- [[reference/external-dependencies]] — Bazel modules, registries, version resolution
+- [[patterns/visibility]] — Access control, public API, package groups
+
+**Updated:**
+- [[wiki/index.md]] — Added 9 new pages, updated counts
+
+**Key Findings:**
+- Packages are directories with BUILD files - THE fundamental organizational unit
+- Targets (declared in BUILD) form a DAG dependency graph
+- Labels have canonical and shorthand forms (@@repo//pkg:target)
+- Declared dependencies must be superset of actual dependencies (undeclared deps cause hidden bugs)
+- Modern Bazel uses MODULE.bazel + registries for deterministic version resolution
+- Visibility controls API surface (public, private, __pkg__, __subpackages__)
+- BUILD files use Starlark (restricted for hermeticity)
+
+**Open Questions:**
+- How do rules actually work? (cc_library, py_binary, etc.)
+- What's the full build workflow? (load → analyze → execute)
+- How to write custom rules?
+- Performance optimization for large monorepos?
+
+**Gaps Identified:**
+- Rules and rule types (cc_library, py_binary, cc_test, etc.)
+- Build workflow details (load, analyze, execute phases)
+- Custom rule development
+- Toolchains and platform configuration
+- Caching and build performance
+- Integration with IDEs
+
+**Stats:** 9 new pages, 50+ Bazel concepts documented, 4,000+ words added, 16 pages total in wiki
