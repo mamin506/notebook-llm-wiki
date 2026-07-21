@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["Repositories, workspaces, packages, and targets.md", "External dependencies overview.md"]
 tags: ["core", "workspace", "repository"]
+graph-group: "reference"
 related: ["[[concepts/fundamentals/packages]]", "[[reference/external-dependencies]]"]
 last_updated: "2026-07-19"
 ---

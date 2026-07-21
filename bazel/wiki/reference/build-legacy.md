@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "stable"
 sources: ["BUILD files.md"]
 tags: ["legacy", "historical", "build-files"]
+graph-group: "reference"
 related: ["[[concepts/fundamentals/build.bazel]]"]
 last_updated: "2026-07-19"
 ---

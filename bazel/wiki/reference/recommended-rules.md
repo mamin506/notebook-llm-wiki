@@ -5,6 +5,7 @@ level: "intermediate"
 status: "growing"
 sources: ["Recommended Rules.md"]
 tags: ["rules", "quality", "standards", "ecosystem"]
+graph-group: "reference"
 related: ["[[reference/builtin-rules]]"]
 last_updated: "2026-07-19"
 ---
