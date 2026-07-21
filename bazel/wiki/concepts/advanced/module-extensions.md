@@ -1,0 +1,251 @@
+---
+title: "Module Extensions"
+category: "concepts"
+level: "advanced"
+status: "growing"
+sources: ["Module extensions.md"]
+tags: ["modules", "extensions", "rules", "advanced"]
+related: ["[[concepts/advanced/repository-rules]]", "[[concepts/fundamentals/module.bazel]]", "[[reference/modules-version-selection]]"]
+last_updated: "2026-07-19"
+graph-group: "concepts"
+---
+
+# Module Extensions
+
+Module extensions allow Bazel modules to extend the dependency system by reading tags from across the dependency graph, resolving dependencies, and creating repositories.
+
+## Core Concept
+
+A **module extension** is a generalization of repository rules that:
+1. Reads declarative **tags** from multiple modules
+2. Performs resolution logic (e.g., resolve Maven artifacts, npm packages)
+3. Creates repos by calling repository rules
+4. Makes repos visible to modules
+
+Unlike repository rules (which have attributes), extensions have **tag classes** (which describe tags that modules can specify).
+
+### Example: Maven Extension
+
+```python
+# In MODULE.bazel (root module)
+bazel_dep(name = "rules_jvm_external", version = "4.5")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+# Specify tags for the extension
+maven.install(artifacts = ["org.junit:junit:4.13.2"])
+maven.artifact(
+    group = "com.google.guava",
+    artifact = "guava",
+    version = "27.0-jre",
+)
+
+# Make generated repos visible
+use_repo(maven, "maven")
+```
+
+---
+
+## Extension Definition
+
+Define extensions using `module_extension`:
+
+```python
+# @rules_jvm_external//:extensions.bzl
+
+# Define tag schemas
+_install = tag_class(attrs = {
+    "artifacts": attr.string_list(),
+    ...
+})
+
+_artifact = tag_class(attrs = {
+    "group": attr.string(),
+    "artifact": attr.string(),
+    "version": attr.string(),
+    ...
+})
+
+# Define the extension
+maven = module_extension(
+    implementation = _maven_impl,
+    tag_classes = {
+        "install": _install,
+        "artifact": _artifact,
+    }
+)
+```
+
+### Tag Classes
+
+Each tag class defines:
+- **Name:** Used in `extension.tag_name` syntax
+- **Attributes:** Schema for tag arguments
+
+Example:
+```python
+maven.install(artifacts = [...])  # Uses "install" tag class
+maven.artifact(group = "...", artifact = "...")  # Uses "artifact" tag class
+```
+
+---
+
+## Extension Implementation
+
+The implementation function is similar to repository rules but receives `module_ctx`:
+
+```python
+def _maven_impl(ctx):
+    # Collect artifacts from all modules using this extension
+    artifacts = []
+    for mod in ctx.modules:
+        for install in mod.tags.install:
+            artifacts += install.artifacts
+        artifacts += [_to_artifact(a) for a in mod.tags.artifact]
+    
+    # Call external tool (e.g., Maven resolver)
+    output = ctx.execute(["coursier", "resolve"] + artifacts)
+    repo_specs = _parse_coursier_output(output)
+    
+    # Call repo rules to generate repos
+    for spec in repo_specs:
+        http_file(**spec)
+    
+    # Generate main hub repo
+    _generate_hub_repo(name = "maven", repo_specs)
+```
+
+### Module Context API
+
+`module_ctx` provides:
+- `ctx.modules` — List of all modules using this extension
+- `mod.name`, `mod.version` — Module identity
+- `mod.tags` — Tags specified for this module
+- `ctx.execute()` — Run commands
+- `ctx.download()`, `ctx.extract()` — File operations
+- Same APIs as `repository_ctx` for file I/O, network, etc.
+
+---
+
+## Usage Patterns
+
+### Basic Usage
+
+```python
+# 1. Add dependency on module with extension
+bazel_dep(name = "rules_jvm_external", version = "4.5")
+
+# 2. Use extension to bind it to a variable
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+# 3. Specify tags (declaratively)
+maven.install(artifacts = ["org.junit:junit:4.13.2"])
+
+# 4. Make generated repos visible
+use_repo(maven, "maven")
+```
+
+### Using Multiple Extensions
+
+```python
+bazel_dep(name = "rules_npm", version = "1.0")
+bazel_dep(name = "rules_python", version = "0.15")
+
+npm = use_extension("@rules_npm//:extensions.bzl", "npm")
+npm.npm_install(dependencies = ["react", "express"])
+use_repo(npm, "npm")
+
+python = use_extension("@rules_python//:extensions.bzl", "python")
+python.python_version(version = "3.11")
+use_repo(python, "python_interpreter")
+```
+
+---
+
+## Extension Identity
+
+Extensions are identified by:
+1. **Module name** (where hosted)
+2. **`.bzl` file path** (where defined)
+3. **Extension name** (symbol in .bzl file)
+
+```python
+# Identity: @rules_jvm_external + extensions.bzl + maven
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+```
+
+**Important:** Re-exporting an extension from a different `.bzl` file gives it a new identity. Each identity is evaluated separately.
+
+As an extension author, ensure users only use your extension from **one** `.bzl` file to avoid duplication.
+
+---
+
+## Repository Names & Visibility
+
+Repos generated by extensions have canonical names:
+
+```
+module_repo_canonical_name + extension_name + repo_name
+```
+
+Example:
+```
+rules_jvm_external+4.5 + maven + maven = rules_jvm_external+4.5+maven+maven
+```
+
+**Note:** This format is an implementation detail and subject to change. Don't hard-code it.
+
+---
+
+## Key Differences: Extensions vs Repository Rules
+
+| Aspect | Repository Rule | Module Extension |
+|--------|---|---|
+| **Input** | Attributes (from single invocation) | Tags (from multiple modules) |
+| **Scope** | Single repo | Multiple repos + coordination |
+| **Usage** | Direct invocation in MODULE.bazel | Declarative tags + `use_extension` |
+| **Visibility** | All modules | Only root module can configure |
+
+**When to use each:**
+- **Repository rule:** Simple one-off repos (git clone, archive download)
+- **Module extension:** Multi-module coordination (Maven, npm, Python package resolution)
+
+---
+
+## Common Use Cases
+
+### 1. Package Manager Integration (Maven, npm, Python)
+Aggregate dependencies from multiple modules and resolve using the package manager's algorithm.
+
+### 2. Language Toolchain Setup
+Coordinate across modules to download/configure language-specific tools (Go, Rust, etc.).
+
+### 3. Custom Build Tool Discovery
+Detect and configure host tools (compilers, runtimes) based on module requests.
+
+### 4. Generate BUILD Files
+Scan source directories across modules and generate BUILD files automatically.
+
+---
+
+## Best Practices
+
+1. **Document tag schemas clearly** — Users need to know what tags/attributes are available
+2. **Collect tags from all modules** — Don't silently ignore tags from non-root modules
+3. **Provide sensible defaults** — Extensions should work with minimal configuration
+4. **Use a single .bzl file** — Avoid re-exporting to prevent confusion
+5. **Make repo names predictable** — Document which repos your extension generates
+6. **Handle errors gracefully** — Provide helpful error messages when resolution fails
+
+---
+
+## Troubleshooting
+
+### "Extension not found"
+Ensure you've added `bazel_dep` for the module hosting the extension.
+
+### "Tag class not defined"
+Check the extension's documentation for available tags and their schemas.
+
+### "Repository visibility error"
+Use `use_repo()` to explicitly make generated repos visible to your module.
