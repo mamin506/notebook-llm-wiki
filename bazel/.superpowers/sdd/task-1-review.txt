@@ -1,0 +1,29 @@
+ bazel/raw/articles/.gitkeep    | 0
+ bazel/raw/assets/.gitkeep      | 0
+ bazel/raw/books/.gitkeep       | 0
+ bazel/raw/docs/.gitkeep        | 0
+ bazel/raw/experiments/.gitkeep | 0
+ bazel/raw/videos/.gitkeep      | 0
+ 6 files changed, 0 insertions(+), 0 deletions(-)
+=== Commit List ===
+b8eeec1 chore: initialize raw sources directory structure
+
+=== Diff ===
+diff --git a/bazel/raw/articles/.gitkeep b/bazel/raw/articles/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/raw/assets/.gitkeep b/bazel/raw/assets/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/raw/books/.gitkeep b/bazel/raw/books/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/raw/docs/.gitkeep b/bazel/raw/docs/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/raw/experiments/.gitkeep b/bazel/raw/experiments/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/raw/videos/.gitkeep b/bazel/raw/videos/.gitkeep
+new file mode 100644
+index 0000000..e69de29
