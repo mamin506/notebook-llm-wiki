@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["BUILD Style Guide.md"]
 tags: ["style", "patterns", "readability"]
+graph-group: "patterns"
 related: ["[[reference/build-conventions]]", "[[patterns/target-naming]]", "[[tools/buildifier]]"]
 last_updated: "2026-07-19"
 ---

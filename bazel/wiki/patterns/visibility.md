@@ -5,6 +5,7 @@ level: "intermediate"
 status: "growing"
 sources: ["Visibility    Bazel.md"]
 tags: ["visibility", "access-control", "api"]
+graph-group: "patterns"
 related: ["[[concepts/fundamentals/targets]]", "[[concepts/fundamentals/packages]]"]
 last_updated: "2026-07-19"
 ---
