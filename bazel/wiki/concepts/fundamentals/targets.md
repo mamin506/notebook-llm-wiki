@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["Repositories, workspaces, packages, and targets.md"]
 tags: ["core", "target"]
+graph-group: "concepts-fundamentals"
 related: ["[[concepts/fundamentals/packages]]", "[[concepts/fundamentals/rules]]", "[[concepts/fundamentals/labels]]"]
 last_updated: "2026-07-19"
 ---

@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["BUILD files.md"]
 tags: ["core", "build-files", "starlark", "recommended"]
+graph-group: "concepts-fundamentals"
 related: ["[[concepts/fundamentals/packages]]", "[[concepts/fundamentals/targets]]", "[[patterns/build-file-style]]", "[[reference/build-conventions]]"]
 last_updated: "2026-07-19"
 ---

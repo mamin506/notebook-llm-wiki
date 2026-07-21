@@ -5,8 +5,9 @@ level: "fundamentals"
 status: "growing"
 sources: ["Repositories, workspaces, packages, and targets.md"]
 tags: ["core", "package", "organization"]
-related: ["[[concepts/fundamentals/targets]]", "[[concepts/fundamentals/build-files]]", "[[concepts/fundamentals/labels]]"]
-last_updated: "2026-07-19"
+graph-group: "concepts-fundamentals"
+related: ["[[concepts/fundamentals/packages-vs-modules]]", "[[concepts/fundamentals/targets]]", "[[concepts/fundamentals/build-files]]", "[[concepts/fundamentals/labels]]"]
+last_updated: "2026-07-20"
 ---
 
 # Packages: The Unit of Organization
@@ -15,28 +16,39 @@ A **package** is the fundamental unit of code organization in Bazel. It's a coll
 
 ## Definition
 
-A package is **a directory containing a `BUILD` file** (named either `BUILD` or `BUILD.bazel`).
+A package is **a directory containing a `BUILD.bazel` file** (or legacy `BUILD` file).
 
 A package includes:
 - All files in its directory
-- All subdirectories beneath it, **except those that contain their own `BUILD` file**
+- All subdirectories beneath it, **except those that contain their own `BUILD.bazel` file**
 
 **Key principle:** No file or directory can belong to two different packages.
+
+### Filename: BUILD.bazel (Recommended)
+
+Use **`BUILD.bazel`** for all new projects and files. This is the modern standard:
+- Clear and unambiguous (avoids confusion with other build systems)
+- Better tooling and IDE support
+- Bazel's official recommendation
+
+For legacy projects still using `BUILD`, Bazel treats it identically to `BUILD.bazel`. See [[reference/build-legacy]] for migration guidance.
 
 ## Example
 
 ```
-src/my/app/BUILD              ← Package: //my/app
+src/my/app/BUILD.bazel              ← Package: //my/app (RECOMMENDED)
 src/my/app/app.cc
-src/my/app/data/input.txt     ← Part of //my/app (no BUILD file here)
-src/my/app/tests/BUILD        ← Package: //my/app/tests (separate package)
+src/my/app/data/input.txt           ← Part of //my/app (no BUILD.bazel here)
+src/my/app/tests/BUILD.bazel        ← Package: //my/app/tests (separate package)
 src/my/app/tests/test.cc
 ```
 
 In this structure:
-- `//my/app` is a package (has BUILD file)
-- `//my/app/tests` is a separate package (has its own BUILD file)
+- `//my/app` is a package (has `BUILD.bazel` file)
+- `//my/app/tests` is a separate package (has its own `BUILD.bazel` file)
 - `my/app/data/` is NOT a package; it belongs to `//my/app`
+
+**Note:** Legacy projects may use `BUILD` instead of `BUILD.bazel`; Bazel treats them identically. For new projects, always use `BUILD.bazel`.
 
 ## Package Organization
 

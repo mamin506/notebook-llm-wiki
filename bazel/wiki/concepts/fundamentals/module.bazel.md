@@ -5,7 +5,8 @@ level: "fundamentals"
 status: "growing"
 sources: ["External dependencies overview.md"]
 tags: ["core", "modules", "dependencies", "recommended"]
-related: ["[[reference/repositories-workspaces]]", "[[reference/external-dependencies]]"]
+graph-group: "concepts-fundamentals"
+related: ["[[concepts/fundamentals/packages-vs-modules]]", "[[reference/repositories-workspaces]]", "[[reference/external-dependencies]]"]
 last_updated: "2026-07-19"
 ---
 
