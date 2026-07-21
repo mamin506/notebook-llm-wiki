@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["Labels    Bazel.md"]
 tags: ["core", "labels", "references"]
+graph-group: "concepts-fundamentals"
 related: ["[[concepts/fundamentals/packages]]", "[[concepts/fundamentals/targets]]"]
 last_updated: "2026-07-19"
 ---

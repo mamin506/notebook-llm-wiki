@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["Dependencies    Bazel.md"]
 tags: ["core", "dependencies", "dag"]
+graph-group: "concepts-fundamentals"
 related: ["[[concepts/fundamentals/targets]]", "[[patterns/dependency-management]]"]
 last_updated: "2026-07-19"
 ---
