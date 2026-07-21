@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["BUILD Style Guide.md"]
 tags: ["tools", "formatting", "linting", "automation"]
+graph-group: "tools"
 related: ["[[reference/build-conventions]]", "[[patterns/build-file-style]]"]
 last_updated: "2026-07-19"
 ---
