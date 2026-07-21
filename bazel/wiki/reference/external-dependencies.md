@@ -5,6 +5,7 @@ level: "intermediate"
 status: "growing"
 sources: ["External dependencies overview.md"]
 tags: ["external-deps", "modules", "registry"]
+graph-group: "reference"
 related: ["[[reference/repositories-workspaces]]"]
 last_updated: "2026-07-19"
 ---

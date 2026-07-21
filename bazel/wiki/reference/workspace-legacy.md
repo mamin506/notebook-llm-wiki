@@ -5,6 +5,7 @@ level: "intermediate"
 status: "stable"
 sources: ["External dependencies overview.md"]
 tags: ["legacy", "historical", "workspace", "dependencies"]
+graph-group: "reference"
 related: ["[[concepts/fundamentals/module.bazel]]"]
 last_updated: "2026-07-19"
 ---

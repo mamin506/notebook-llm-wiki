@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["BUILD Style Guide.md"]
 tags: ["conventions", "formatting", "reference"]
+graph-group: "reference"
 related: ["[[patterns/build-file-style]]", "[[tools/buildifier]]"]
 last_updated: "2026-07-19"
 ---
