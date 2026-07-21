@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["BUILD Style Guide.md"]
 tags: ["naming", "conventions", "targets"]
+graph-group: "patterns"
 related: ["[[patterns/build-file-style]]", "[[concepts/fundamentals/targets]]"]
 last_updated: "2026-07-19"
 ---

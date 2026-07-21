@@ -5,6 +5,7 @@ level: "intermediate"
 status: "growing"
 sources: ["BUILD Style Guide.md"]
 tags: ["anti-patterns", "maintainability", "best-practices"]
+graph-group: "patterns"
 related: ["[[patterns/build-file-style]]", "[[patterns/dependency-management]]"]
 last_updated: "2026-07-19"
 ---

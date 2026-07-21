@@ -5,6 +5,7 @@ level: "fundamentals"
 status: "growing"
 sources: ["BUILD Style Guide.md", "Sharing Variables.md"]
 tags: ["dependencies", "best-practices", "maintainability"]
+graph-group: "patterns"
 related: ["[[patterns/build-file-style]]", "[[concepts/fundamentals/dependencies]]"]
 last_updated: "2026-07-19"
 ---
