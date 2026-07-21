@@ -1,0 +1,40 @@
+ bazel/.claude/CLAUDE.md                            |  580 +++++++
+ bazel/.claude/skills/.gitkeep                      |    0
+ bazel/.claude/skills/ingest.md                     |  461 ++++++
+ bazel/.claude/skills/lint.md                       |  600 ++++++++
+ bazel/.claude/skills/query.md                      |  536 +++++++
+ bazel/.gitignore                                   |   32 +
+ .../plans/2026-07-17-bazel-llm-wiki-init.md        | 1584 ++++++++++++++++++++
+ .../specs/2026-07-17-bazel-llm-wiki-design.md      |  691 +++++++++
+ bazel/raw/articles/.gitkeep                        |    0
+ bazel/raw/assets/.gitkeep                          |    0
+ bazel/raw/books/.gitkeep                           |    0
+ bazel/raw/docs/.gitkeep                            |    0
+ bazel/raw/experiments/.gitkeep                     |    0
+ bazel/raw/videos/.gitkeep                          |    0
+ bazel/wiki/concepts/advanced/.gitkeep              |    0
+ bazel/wiki/concepts/fundamentals/.gitkeep          |    0
+ bazel/wiki/experiments/.gitkeep                    |    0
+ bazel/wiki/index.md                                |   49 +
+ bazel/wiki/languages/.gitkeep                      |    0
+ bazel/wiki/log.md                                  |   34 +
+ bazel/wiki/patterns/.gitkeep                       |    0
+ bazel/wiki/reference/.gitkeep                      |    0
+ bazel/wiki/tools/.gitkeep                          |    0
+ bazel/wiki/troubleshooting/.gitkeep                |    0
+ 24 files changed, 4567 insertions(+)
+=== Commit Log (Initial to HEAD) ===
+fca2f4a chore: add .gitignore
+37b95b5 chore: create wiki/log.md stub
+5213139 chore: create wiki/index.md stub
+97a2eac docs: add lint skill for wiki health checks
+cf7d198 docs: add query skill for answering questions against the wiki
+a529c45 docs: add ingest skill for processing new sources
+79b4dcd docs: add CLAUDE.md master schema for Bazel LLM Wiki
+614dbc0 chore: initialize .claude/skills directory
+8fbb20a chore: initialize wiki directory structure
+b8eeec1 chore: initialize raw sources directory structure
+5cdb09e add implementation plan for Bazel LLM Wiki initialization
+b7b2f51 Add Bazel LLM Wiki design specification
+
+Total commits: 12

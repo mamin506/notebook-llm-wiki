@@ -1,0 +1,37 @@
+ bazel/wiki/concepts/advanced/.gitkeep     | 0
+ bazel/wiki/concepts/fundamentals/.gitkeep | 0
+ bazel/wiki/experiments/.gitkeep           | 0
+ bazel/wiki/languages/.gitkeep             | 0
+ bazel/wiki/patterns/.gitkeep              | 0
+ bazel/wiki/reference/.gitkeep             | 0
+ bazel/wiki/tools/.gitkeep                 | 0
+ bazel/wiki/troubleshooting/.gitkeep       | 0
+ 8 files changed, 0 insertions(+), 0 deletions(-)
+=== Commits ===
+8fbb20a chore: initialize wiki directory structure
+
+=== Diff ===
+diff --git a/bazel/wiki/concepts/advanced/.gitkeep b/bazel/wiki/concepts/advanced/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/concepts/fundamentals/.gitkeep b/bazel/wiki/concepts/fundamentals/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/experiments/.gitkeep b/bazel/wiki/experiments/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/languages/.gitkeep b/bazel/wiki/languages/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/patterns/.gitkeep b/bazel/wiki/patterns/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/reference/.gitkeep b/bazel/wiki/reference/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/tools/.gitkeep b/bazel/wiki/tools/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/bazel/wiki/troubleshooting/.gitkeep b/bazel/wiki/troubleshooting/.gitkeep
+new file mode 100644
+index 0000000..e69de29

@@ -1,0 +1,44 @@
+ bazel/.gitignore | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+=== Commits ===
+fca2f4a chore: add .gitignore
+
+=== Diff ===
+diff --git a/bazel/.gitignore b/bazel/.gitignore
+new file mode 100644
+index 0000000..c3ce216
+--- /dev/null
++++ b/bazel/.gitignore
+@@ -0,0 +1,32 @@
++# Raw sources — exclude large files and external content
++raw/
++
++# Obsidian cache and plugins
++.obsidian/cache/
++.obsidian/plugins/
++.obsidian/*.json
++!.obsidian/vault.json
++
++# Claudian cache
++.claudian/
++
++# System files
++.DS_Store
++Thumbs.db
++*.swp
++*.swo
++*~
++
++# IDE
++.vscode/
++.idea/
++*.sublime-project
++*.sublime-workspace
++
++# OS-specific
++*~
++.*.sw[a-z]
++
++# Temporary files
++*.tmp
++*.bak

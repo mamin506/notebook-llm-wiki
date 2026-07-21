@@ -1,0 +1,9 @@
+ bazel/.claude/skills/.gitkeep | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+=== Commits ===
+614dbc0 chore: initialize .claude/skills directory
+
+=== Diff ===
+diff --git a/bazel/.claude/skills/.gitkeep b/bazel/.claude/skills/.gitkeep
+new file mode 100644
+index 0000000..e69de29

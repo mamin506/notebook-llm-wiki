@@ -1,0 +1,61 @@
+ bazel/wiki/index.md | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+=== Commits ===
+5213139 chore: create wiki/index.md stub
+
+=== Diff ===
+diff --git a/bazel/wiki/index.md b/bazel/wiki/index.md
+new file mode 100644
+index 0000000..25e563d
+--- /dev/null
++++ b/bazel/wiki/index.md
+@@ -0,0 +1,49 @@
++# Bazel Wiki Index
++
++This is the catalog of all pages in the Bazel LLM Wiki. Updated after every ingest.
++
++**Status:** Just initialized; awaiting first ingest of official Bazel documentation.
++
++---
++
++## Concepts
++
++### Fundamentals
++(No pages yet. First ingest will add pages like targets, rules, artifacts, BUILD files, etc.)
++
++### Advanced
++(No pages yet. Will be populated after fundamentals are solid.)
++
++---
++
++## Reference
++(No pages yet. Will contain synthesis of official Bazel docs: CLI reference, built-in rules, API guides, configuration.)
++
++---
++
++## Languages
++(No pages yet. Will contain guides for Python, Java, C++, TypeScript, and other languages.)
++
++---
++
++## Tools
++(No pages yet. Will contain guides for Gazelle, Buildifier, Buildozer, and other tools.)
++
++---
++
++## Patterns
++(No pages yet. Will contain best practices: monorepo layout, testing strategy, dependency management, custom rules, etc.)
++
++---
++
++## Troubleshooting
++(No pages yet. Will contain debugging guides, performance optimization, common issues, etc.)
++
++---
++
++## Experiments
++(No pages yet. Will contain pages documenting your hands-on learning experiments and projects.)
++
++---
++
++**Next Step:** Ingest the official Bazel concepts guide to populate concepts/fundamentals/ and reference/.
