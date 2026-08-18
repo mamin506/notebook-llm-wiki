@@ -1,0 +1,3 @@
+# Claude local settings (do not commit)
+.claude/settings.local.json
+.claude/settings.local.*
