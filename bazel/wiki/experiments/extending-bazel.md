@@ -5,8 +5,8 @@ level: "advanced"
 status: "seedling"
 sources: []
 tags: ["extending", "custom-rules", "rulesets", "advanced", "deep-dive"]
-related: ["[[concepts/advanced/bazel-design-decisions]]", "[[concepts/advanced/build-systems-landscape]]", "[[experiments/publishing-bazel-rules]]"]
-last_updated: "2026-07-20"
+related: ["[[concepts/fundamentals/rules]]", "[[concepts/advanced/writing-custom-rules]]", "[[concepts/advanced/bazel-design-decisions]]", "[[concepts/advanced/build-systems-landscape]]"]
+last_updated: "2026-07-30"
 ---
 
 # Extending Bazel: Custom Rules and Rulesets

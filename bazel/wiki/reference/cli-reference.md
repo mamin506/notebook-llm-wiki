@@ -3,10 +3,10 @@ title: "Bazel CLI Reference"
 category: "reference"
 level: "intermediate"
 status: "growing"
-sources: ["Commands and Options.md"]
+sources: ["Commands and Options.md", "Command-Line Reference.md"]
 tags: ["cli", "commands", "#recommended"]
-related: ["[[concepts/fundamentals/targets]]", "[[reference/build-options]]", "[[patterns/monorepo-layout]]"]
-last_updated: "2026-07-19"
+related: ["[[concepts/fundamentals/targets]]", "[[reference/build-options]]", "[[reference/build-command-options]]", "[[patterns/monorepo-layout]]"]
+last_updated: "2026-07-29"
 graph-group: "reference"
 ---
 
@@ -22,6 +22,7 @@ Builds one or more targets.
 ```bash
 bazel build //foo
 bazel build //foo/... --compilation_mode=opt
+bazel build -c opt --jobs=8 //app:binary
 ```
 
 **Key options:**
@@ -29,6 +30,8 @@ bazel build //foo/... --compilation_mode=opt
 - `--jobs (-j)` — Number of parallel jobs (default: auto-detected)
 - `--keep_going (-k)` — Continue building even after errors
 - `--output_filter=regex` — Filter output by regex
+
+**See also:** [[reference/build-command-options]] for comprehensive build option reference
 
 ### bazel test
 Builds and runs tests.
@@ -55,16 +58,57 @@ bazel run //foo:app -- --arg1 --arg2
 
 **Note:** Arguments after `--` are passed to the target, not Bazel.
 
-### bazel query / bazel cquery
-Query the dependency graph.
+### bazel aquery
+Analyzes the given targets and queries the action graph (action-level details).
+
+```bash
+bazel aquery 'action(//foo:app)'
+bazel aquery --output=text 'filter("JavaCompile", //foo:app)'
+```
+
+### bazel cquery
+Loads, analyzes, and queries the specified targets with configurations (config-aware).
+
+```bash
+bazel cquery --output=graph 'deps(//foo)' --cpu=aarch64
+bazel cquery 'attr("tags", "manual", //...)'
+```
+
+### bazel query
+Executes a dependency graph query (operates after loading phase).
 
 ```bash
 bazel query 'deps(//foo)'
-bazel cquery --output=graph 'deps(//foo)' --cpu=aarch64
+bazel query 'rdeps(//app, //lib)'
 ```
 
-- `query` — operates after loading phase
-- `cquery` — operates after analysis phase (respects build flags)
+**Differences:**
+- `query` — Fast, operates on loaded targets only
+- `cquery` — Slower, respects build flags (--cpu, --platforms, etc.)
+- `aquery` — Operates on action graph, shows actual compilation commands
+
+### bazel fetch
+Fetches external repositories (prerequisites to targets).
+
+```bash
+bazel fetch //app:all
+bazel fetch --repo=@python_interpreter
+```
+
+### bazel coverage
+Generates code coverage report for specified test targets.
+
+```bash
+bazel coverage //app:app_test --coverage_report_generator=@bazel_tools//tools/cpp:coverage_generator
+```
+
+### bazel mobile-install
+Installs targets to mobile devices (iOS/Android).
+
+```bash
+bazel mobile-install //app:ios_app
+bazel mobile-install --device=device_id //app:android_app
+```
 
 ### bazel clean
 Removes build outputs.
@@ -144,40 +188,85 @@ bazel --output_base=/tmp/my_bazel_output build //foo
 - `--batch` — Run single command instead of client/server
 - `--max_idle_secs=n` — Server idle timeout (default: 10800 / 3 hours)
 
-## Miscellaneous
+## Utility & Diagnostic Commands
 
-### info
-Display Bazel configuration info.
+### bazel info
+Display Bazel configuration and runtime info.
 
 ```bash
 bazel info workspace         # Workspace root directory
 bazel info output_base       # Output base directory
 bazel info bazel-bin         # Build output directory
 bazel info server_pid        # Bazel server process ID
+bazel info all               # Show all info
 ```
 
-### version
+### bazel version
 Display Bazel version information.
 
 ```bash
 bazel version
-bazel --version  # Shorter form, doesn't start server
+bazel --version              # Shorter form, doesn't start server
 ```
 
-### help
+### bazel help
 Show help for commands and topics.
 
 ```bash
 bazel help build
-bazel help --long build  # Detailed help with defaults
+bazel help --long build      # Detailed help with defaults
+bazel help                   # Show all available commands
 ```
 
-### shutdown
+### bazel dump
+Dumps the internal state of the Bazel server process.
+
+```bash
+bazel dump --skyframe_state=/tmp/skyframe.txt
+```
+
+### bazel shutdown
 Stop the Bazel server.
 
 ```bash
 bazel shutdown
 bazel shutdown --iff_heap_size_greater_than 512  # Conditional shutdown
+```
+
+### bazel print_action
+Prints the command-line args for compiling a file.
+
+```bash
+bazel print_action //app:main.cc
+```
+
+### bazel mod
+Queries the Bzlmod external dependency graph (module system).
+
+```bash
+bazel mod graph --extension=@bazel_tools//extensions:python
+bazel mod query
+```
+
+### bazel vendor
+Fetches external repositories into a folder.
+
+```bash
+bazel vendor --vendor_dir=vendor
+```
+
+### bazel canonicalize-flags
+Canonicalizes a list of Bazel options (useful for build scripts).
+
+```bash
+bazel canonicalize-flags --source_root=/workspace --build_root=/tmp
+```
+
+### bazel license
+Prints the license of this software.
+
+```bash
+bazel license
 ```
 
 ---

@@ -5,8 +5,8 @@ level: "intermediate"
 status: "growing"
 sources: ["General Rules.md"]
 tags: ["#rules", "#reference", "#utilities"]
-related: ["[[concepts/fundamentals/targets]]", "[[reference/cli-reference]]", "[[patterns/dependency-management]]"]
-last_updated: "2026-07-19"
+related: ["[[concepts/fundamentals/rules]]", "[[concepts/fundamentals/targets]]", "[[reference/cli-reference]]", "[[patterns/dependency-management]]"]
+last_updated: "2026-07-30"
 graph-group: "reference"
 ---
 

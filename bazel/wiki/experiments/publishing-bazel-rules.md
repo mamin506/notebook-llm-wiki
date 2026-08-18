@@ -5,8 +5,8 @@ level: "advanced"
 status: "seedling"
 sources: ["Deploying Rules.md"]
 tags: ["publishing", "rulesets", "distribution", "github", "open-source", "advanced"]
-related: ["[[experiments/extending-bazel]]", "[[concepts/fundamentals/module.bazel]]"]
-last_updated: "2026-07-20"
+related: ["[[concepts/advanced/writing-custom-rules]]", "[[experiments/extending-bazel]]", "[[concepts/fundamentals/module.bazel]]"]
+last_updated: "2026-07-30"
 ---
 
 # Publishing Bazel Rules: From Private to Public

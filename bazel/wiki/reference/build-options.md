@@ -5,8 +5,8 @@ level: "intermediate"
 status: "growing"
 sources: ["Commands and Options.md"]
 tags: ["cli", "build", "configuration"]
-related: ["[[reference/cli-reference]]", "[[concepts/fundamentals/build.bazel]]", "[[concepts/advanced/platforms]]"]
-last_updated: "2026-07-19"
+related: ["[[reference/cli-reference]]", "[[reference/build-command-options]]", "[[concepts/fundamentals/build.bazel]]", "[[concepts/advanced/platforms]]"]
+last_updated: "2026-07-30"
 graph-group: "reference"
 ---
 

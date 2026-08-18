@@ -5,8 +5,8 @@ level: "advanced"
 status: "growing"
 sources: ["Repository Rules.md"]
 tags: ["rules", "external-deps", "advanced"]
-related: ["[[reference/external-dependencies]]", "[[concepts/fundamentals/labels]]", "[[concepts/advanced/macros]]"]
-last_updated: "2026-07-19"
+related: ["[[concepts/fundamentals/rules]]", "[[concepts/advanced/writing-custom-rules]]", "[[reference/external-dependencies]]", "[[concepts/fundamentals/labels]]", "[[concepts/advanced/macros]]"]
+last_updated: "2026-07-30"
 graph-group: "concepts"
 ---
 
